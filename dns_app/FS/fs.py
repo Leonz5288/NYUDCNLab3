@@ -3,7 +3,7 @@ import json, socket
 
 app = Flask('fibonacci_server')
 
-@app.route('/register', method=['PUT'])
+@app.route('/register', methods=['PUT'])
 def register():
     payload = request.get_json()
     hostname = payload['hostname']
@@ -15,7 +15,7 @@ def register():
     sock.sendto(bytes(msg, 'utf-8'), (as_ip, as_port))
     return str(number), 201
 
-@app.route('/fibonacci', method=['GET'])
+@app.route('/fibonacci', methods=['GET'])
 def fibonacci():
     number = request.args.get('number')
     if number is None:

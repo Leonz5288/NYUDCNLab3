@@ -2,7 +2,7 @@ from flask import Flask, request
 
 app = Flask('user_server')
 
-@app.route('/fibonacci', method=['GET'])
+@app.route('/fibonacci', methods=['GET'])
 def ask_for_num():
     hostname = request.args.get('hostname')
     fs_port = request.args.get('fs_port')
