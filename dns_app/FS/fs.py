@@ -11,9 +11,10 @@ def register():
     as_ip = payload['as_ip']
     as_port = payload['as_port']
     msg = 'TYPE=A\nNAME='+hostname+'\nVALUE='+ip+'\nTTL=10'
-    sock = socket.socket(socket.AFINET, socket.SOCK_DGRAM)
-    sock.sendto(bytes(msg, 'utf-8'), (as_ip, as_port))
-    return str(number), 201
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    print(msg)
+    sock.sendto(bytes(msg, 'utf-8'), (as_ip, int(as_port)))
+    return str(msg), 201
 
 @app.route('/fibonacci', methods=['GET'])
 def fibonacci():
@@ -25,4 +26,4 @@ def fibonacci():
     return number, 200
 
 if __name__ == '__main__':
-    app.run(port=9090)
+    app.run(debug=True, port=9090)
