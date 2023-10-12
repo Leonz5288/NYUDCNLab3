@@ -12,7 +12,7 @@ def register():
     as_ip = payload['as_ip']
     as_port = payload['as_port']
     msg = 'TYPE=A\nNAME='+hostname+'\nVALUE='+ip+'\nTTL=10'
-    sock.sendto(bytes(msg, 'utf-8'), ('127.0.0.1', 53533))
+    sock.sendto(bytes(msg, 'utf-8'), (as_ip, int(as_port)))
     data, addr = sock.recvfrom(1024)
     if data.decode('utf-8') == 'OK':
         return 'Success', 201
@@ -38,4 +38,4 @@ def fib_helper(x):
 
 if __name__ == '__main__':
     sock.bind(('127.0.0.1', 0))
-    app.run(debug=True, port=9090)
+    app.run(port=9090)

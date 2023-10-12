@@ -15,15 +15,13 @@ def ask_for_num():
         return 'Lack of Parameters', 400
     print('Finding ip')
     msg = 'TYPE=A\nNAME='+hostname
-    sock.sendto(bytes(msg, 'utf-8'), ('127.0.0.1', 53533))
+    sock.sendto(bytes(msg, 'utf-8'), (as_ip, int(as_port)))
     data, addr = sock.recvfrom(1024)
     dl = data.decode('utf-8').split('\n')
-    print('Got id')
-    print(dl)
     ip = dl[2].split('=')[1]
     url = 'http://'+ip+':9090/fibonacci?number='+number
     r = requests.get(url)
-    return r.text, 200
+    return r.text, r.status_code
 
 if __name__ == '__main__':
     sock.bind(('127.0.0.1', 0))
